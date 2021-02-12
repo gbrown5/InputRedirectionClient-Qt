@@ -104,11 +104,11 @@ class Worker : public QObject {
     void setPreviousLAxis(double x, double y);
     void closeThread() { emit finished(); }
 
-    explicit Worker(QObject *parent = 0) : QObject(parent)
+    /*explicit Worker(QObject *parent = 0) : QObject(parent)
     {
         previousLeftAxis.x = leftAxis.x;
         previousLeftAxis.y = leftAxis.y;
-    }
+    }*/
     ~Worker()
     {
 

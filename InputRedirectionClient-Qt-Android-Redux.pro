@@ -8,7 +8,7 @@ QT       += core gui network gamepad
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = InputRedirectionClient-Qt
+TARGET = InputRedirectionClient-Qt-Android-Redux
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,12 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp \
+    configwindow.cpp \
     global.cpp \
     gpmanager.cpp \
-    touchscreen.cpp \
-    configwindow.cpp \
     settings.cpp \
-    shortcut.cpp
+    shortcut.cpp \
+    touchscreen.cpp
 
 #HEADERS  += widget.h
 
@@ -43,3 +43,27 @@ HEADERS += \
     settings.h \
     tsshortcut.h \
     shortcut.h
+
+DISTFILES += \
+    logo/192x192.png \
+    logo/192x192_v2.png \
+    logo/48x48.png \
+    logo/48x48_v2.png \
+    logo/512x512.png \
+    logo/512x512_v2.png \
+    logo/96x96.png \
+    logo/96x96_v2.png \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    logo/InputRedirectionClient.png \
+    logo/InputRedirectionClient-old.png
+
+RESOURCES += \
+    images.qrc
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

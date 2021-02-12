@@ -7,22 +7,40 @@ ConfigWindow::ConfigWindow(QWidget *parent, TouchScreen *ts) : QDialog(parent)
     this->setWindowTitle(tr("InputRedirectionClient-Qt - Button Config"));
 
     comboBoxA = populateItems(variantToButton(settings.value("ButtonA", QGamepadManager::ButtonA)));
+    comboBoxA->setFocusPolicy(Qt::NoFocus);
     comboBoxB = populateItems(variantToButton(settings.value("ButtonB", QGamepadManager::ButtonB)));
+    comboBoxB->setFocusPolicy(Qt::NoFocus);
     comboBoxX = populateItems(variantToButton(settings.value("ButtonX", QGamepadManager::ButtonX)));
+    comboBoxX->setFocusPolicy(Qt::NoFocus);
     comboBoxY = populateItems(variantToButton(settings.value("ButtonY", QGamepadManager::ButtonY)));
+    comboBoxY->setFocusPolicy(Qt::NoFocus);
     comboBoxUp = populateItems(variantToButton(settings.value("ButtonUp", QGamepadManager::ButtonUp)));
+    comboBoxUp->setFocusPolicy(Qt::NoFocus);
     comboBoxDown = populateItems(variantToButton(settings.value("ButtonDown", QGamepadManager::ButtonDown)));
+    comboBoxDown->setFocusPolicy(Qt::NoFocus);
     comboBoxLeft = populateItems(variantToButton(settings.value("ButtonLeft", QGamepadManager::ButtonLeft)));
+    comboBoxLeft->setFocusPolicy(Qt::NoFocus);
     comboBoxRight = populateItems(variantToButton(settings.value("ButtonRight", QGamepadManager::ButtonRight)));
+    comboBoxRight->setFocusPolicy(Qt::NoFocus);
     comboBoxL = populateItems(variantToButton(settings.value("ButtonL", QGamepadManager::ButtonL1)));
+    comboBoxL->setFocusPolicy(Qt::NoFocus);
     comboBoxR = populateItems(variantToButton(settings.value("ButtonR", QGamepadManager::ButtonR1)));
+    comboBoxR->setFocusPolicy(Qt::NoFocus);
     comboBoxSelect = populateItems(variantToButton(settings.value("ButtonSelect", QGamepadManager::ButtonSelect)));
+    comboBoxSelect->setFocusPolicy(Qt::NoFocus);
     comboBoxStart = populateItems(variantToButton(settings.value("ButtonStart", QGamepadManager::ButtonStart)));
+    comboBoxStart->setFocusPolicy(Qt::NoFocus);
     comboBoxZL = populateItems(variantToButton(settings.value("ButtonZL", QGamepadManager::ButtonL2)));
+    comboBoxZL->setFocusPolicy(Qt::NoFocus);
     comboBoxZR = populateItems(variantToButton(settings.value("ButtonZR", QGamepadManager::ButtonR2)));
+    comboBoxZR->setFocusPolicy(Qt::NoFocus);
     comboBoxHome = populateItems(variantToButton(settings.value("ButtonHome", QGamepadManager::ButtonInvalid)));
+    comboBoxHome->setFocusPolicy(Qt::NoFocus);
     comboBoxPower = populateItems(variantToButton(settings.value("ButtonPower", QGamepadManager::ButtonInvalid)));
+    comboBoxPower->setFocusPolicy(Qt::NoFocus);
     comboBoxPowerLong = populateItems(variantToButton(settings.value("ButtonPowerLong", QGamepadManager::ButtonInvalid)));
+    comboBoxPowerLong->setFocusPolicy(Qt::NoFocus);
+
     txtCppVal = new QLineEdit();
     txtStickVal = new QLineEdit();
     validator = new QIntValidator();
@@ -34,17 +52,27 @@ ConfigWindow::ConfigWindow(QWidget *parent, TouchScreen *ts) : QDialog(parent)
     txtStickVal->setText(tr("%1").arg(CPAD_BOUND));
 
     txtCppVal->setClearButtonEnabled(true);
+    txtCppVal->setInputMethodHints(Qt::ImhPreferNumbers);
     txtStickVal->setClearButtonEnabled(true);
+    txtStickVal->setInputMethodHints(Qt::ImhPreferNumbers);
 
     invertYCheckbox = new QCheckBox(this);
+    invertYCheckbox->setFocusPolicy(Qt::NoFocus);
     invertYCppCheckbox = new QCheckBox(this);
+    invertYCppCheckbox->setFocusPolicy(Qt::NoFocus);
     swapSticksCheckbox = new QCheckBox(this);
+    swapSticksCheckbox->setFocusPolicy(Qt::NoFocus);
     mhCameraCheckbox = new QCheckBox(this);
+    mhCameraCheckbox->setFocusPolicy(Qt::NoFocus);
     rsSmashCheckbox = new QCheckBox(this);
+    rsSmashCheckbox->setFocusPolicy(Qt::NoFocus);
     rsFaceButtonsCheckbox = new QCheckBox();
+    rsFaceButtonsCheckbox->setFocusPolicy(Qt::NoFocus);
     disableCStickCheckbox = new QCheckBox();
+    disableCStickCheckbox->setFocusPolicy(Qt::NoFocus);
 
-    saveButton = new QPushButton(tr("&SAVE"), this);
+    saveButton = new QPushButton(tr("&SAVE 💾"), this);
+    saveButton->setFocusPolicy(Qt::NoFocus);
 
     layout = new QGridLayout(this);
 
@@ -186,7 +214,7 @@ ConfigWindow::ConfigWindow(QWidget *parent, TouchScreen *ts) : QDialog(parent)
         switch(state)
         {
             case Qt::Unchecked:
-               btnSettings.setMonsterHunterCamera(false);
+                btnSettings.setMonsterHunterCamera(false);
                 settings.setValue("monsterHunterCamera", false);
                 break;
             case Qt::Checked:
@@ -295,6 +323,12 @@ ConfigWindow::ConfigWindow(QWidget *parent, TouchScreen *ts) : QDialog(parent)
 
         ts->updatePixmap();
 
+    });
+
+    connect(saveButton, &QPushButton::released, this,
+            [this](void)
+    {
+        this->hide();
     });
 
     invertYCheckbox->setChecked(settings.value("invertY", false).toBool());

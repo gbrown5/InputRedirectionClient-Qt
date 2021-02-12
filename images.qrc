@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/myressources">
+        <file>logo/512x512_v2.png</file>
+        <file>logo/InputRedirectionClient.png</file>
+    </qresource>
+</RCC>

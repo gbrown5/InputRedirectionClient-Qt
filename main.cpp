@@ -4,6 +4,7 @@
 
 #include "mainwidget.h"
 #include "gpmanager.h"
+#include "global.h"
 #include <QTimer>
 #include <QThread>
 
@@ -17,16 +18,18 @@ int main(int argc, char *argv[])
     QThread* thread = new QThread();
     QTimer timer;
     timer.setInterval(20);
-
     timer.moveToThread(thread);
-    worker.moveToThread(thread);
+
+    Worker* worker = new Worker();
+    worker->moveToThread(thread);
 
     QObject::connect(thread, SIGNAL (started()), &timer, SLOT (start()));
-    QObject::connect(&worker, SIGNAL (finished()), thread, SLOT (quit()));
+    QObject::connect(worker, SIGNAL (finished()), thread, SLOT (quit()));
     QObject::connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
-    QObject::connect(&timer, SIGNAL(timeout()), &worker, SLOT(sendFrame()));
+    QObject::connect(worker, SIGNAL (finished()), worker, SLOT (deleteLater()));
+    QObject::connect(&timer, SIGNAL (timeout()), worker, SLOT(sendFrame()));
     thread->start();
     a.exec();
-    worker.closeThread();
+    worker->closeThread();
     return 0;
 }
